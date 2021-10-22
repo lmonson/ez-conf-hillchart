@@ -1,0 +1,37 @@
+{
+  "name": "ez-conf-hillchart",
+  "version": "0.0.37",
+  "description": "A simple way to embed a hill chart in confluence",
+  "type": "module",
+  "main": "lib/ez-confluence-hillchart.js",
+  "module": "lib/ez-confluence-hillchart.js",
+  "types": "lib/ez-confluence-hillchart.d.ts",
+  "scripts": {
+    "build": "rm -rf lib && tsc"
+  },
+  "keywords": [],
+  "author": "Lynn Monson",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "fast-equals": "^2.0.3",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "tslint": "^6.1.3",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@types/throttle-debounce": "^2.1.0",
+    "hill-chart": "^1.3.1",
+    "throttle-debounce": "^3.0.1"
+  },
+  "jest": {
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  }
+}
