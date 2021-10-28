@@ -51,12 +51,14 @@ export async function hillChart(
     }
 
     let previousState = [];
-    if ( await persistentAttachment.attachmentExists() ) {
+    const attachmentExists =await persistentAttachment.attachmentExists();
+    if ( attachmentExists ) {
         previousState = await persistentAttachment.read();
     }
-
     let data = initializeDataPoints( datapoint_names, previousState);
-    await persistentAttachment.upsert( data );
+    if ( !attachmentExists ) {
+        await persistentAttachment.create( data );
+    }
 
     const hill = new HillChart(data, config);
     hill.render();

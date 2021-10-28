@@ -1,6 +1,6 @@
 {
   "name": "ez-conf-hillchart",
-  "version": "0.0.38",
+  "version": "0.0.41",
   "description": "A simple way to embed a hill chart in confluence",
   "homepage": "https://github.com/lmonson/ez-conf-hillchart",
   "repository": "github:lmonson/ez-conf-hillchart",

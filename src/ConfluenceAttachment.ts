@@ -115,10 +115,37 @@ export class ConfluenceAttachment {
         }
         return response.json();
     }
+    public async isWatchingPage( pageId:string) {
+        const url = `${this.baseConfluenceUrl}/rest/api/user/watch/content/${pageId}`;
+        const response = await fetch(url);
+        if (response.ok) {
+            const json = await response.json();
+            return !!json.watching;
+        }
+        return false;
+    }
+
+    public async deleteWatcher( pageId:string) {
+        const url = `${this.baseConfluenceUrl}/rest/api/user/watch/content/${pageId}`;
+        const response = await fetch(url, { method:"DELETE"});
+        return response;
+    }
+
+    public async addWatcher( pageId:string) {
+        const url = `${this.baseConfluenceUrl}/rest/api/user/watch/content/${pageId}`;
+        const response = await fetch(url, { method:"POST"});
+        return response;
+    }
 
     public async update(content: any) {
         const pId = await this.pageId();
         const aId = await this.attachmentId();
+
+
+        const isWatching = await this.isWatchingPage( pId);
+        if ( isWatching ) {
+            await this.deleteWatcher(pId);
+        }
 
         const url = `${this.baseConfluenceUrl}/rest/api/content/${pId}/child/attachment/${aId}/data`;
 
@@ -136,7 +163,15 @@ export class ConfluenceAttachment {
             return null;
         }
 
-        return response.json();
+
+
+        const jsonResponse = response.json();
+
+        if ( !isWatching ) {
+            await this.deleteWatcher(pId);
+        }
+
+        return jsonResponse;
         // console.log("Json update complete, response is", json);
     }
 
